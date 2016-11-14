@@ -1,6 +1,6 @@
 package objectGenerator.templates;
 
-public class MultiPrimitaves {
+public class MultiPrimitives {
 	private int varInt;
 	private float varFloat;
 	private double varDouble;

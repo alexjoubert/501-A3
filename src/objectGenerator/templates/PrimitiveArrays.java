@@ -1,9 +1,9 @@
 package objectGenerator.templates;
 
-public class ArraysPrimitive {
+public class PrimitiveArrays {
 	public int[] arrayInt;
 	
-	public ArraysPrimitive()
+	public PrimitiveArrays()
 	{
 		arrayInt = new int[100];
 	}
