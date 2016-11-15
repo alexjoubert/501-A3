@@ -1,0 +1,6 @@
+1) A simple object with only primitives for instance variables
+2) An object that contains references to other objects.
+3) An object that contains an array of primitives.
+4) An object that contains an array of object references.
+5) An object that uses an instance of one of Java collection classes to refer to several other objects.
+6) Exit
