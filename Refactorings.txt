@@ -1,0 +1,26 @@
+Refactorings:
+
+1. Extract Method
+	Bad code smell of copy pasting code
+	Extracted multiple display methods from visualizer class
+	Repeated code now in methods
+
+2. Move Method
+	Bad code smell of using similar display methods in multiple classes
+	Added previously used TextDisplay Class to Utilities package
+	Method that were repeated across multiple classes were moved into a single class
+
+3. Remove Method
+	Bad code smell of some methods never being called
+	Removed these methods some were unused getters and setters others were unused methods from a previously made textdisplay class
+	Unused methods removed
+
+4. Make method private
+	Bad code smell of multiple public methods not getting called from another class
+	Made these methods private
+	Methods now have the correct modifiers
+
+5. Make class variables private
+	Bad code smell of public class variables
+	Made these variables private and created getters/setters when needed
+	Class variables now private

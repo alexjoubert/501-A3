@@ -1,0 +1,20 @@
+8d249db was alexjoubert, 4 minutes ago, message: fixed warnings in serializer and deserializer
+c17d2bc was alexjoubert, 16 minutes ago, message: removed unused methods and made methods private in Visualizer class
+f4f210b was alexjoubert, 20 minutes ago, message: made methods private in Driver class
+084d4c9 was alexjoubert, 24 minutes ago, message: removed unused methods and made methods private in TextDisplay class
+397312e was alexjoubert, 30 minutes ago, message: removed template package
+62fc5a8 was alexjoubert, 34 minutes ago, message: added objgenmenu and objmenu to objectGenerator assets
+9f7f01a was alexjoubert, 53 minutes ago, message: added serverconfig and mainmenu to main assets
+fcea9e0 was alexjoubert, 60 minutes ago, message: added Driver and ObjGenerator classes
+1364227 was alexjoubert, 2 hours ago, message: extracted all displays from Visualizer and added it to TextDisplay utility class
+a512d2f was alexjoubert, 2 hours ago, message: Added logic to set private stuff  to accessible
+5e962c6 was alexjoubert, 3 hours ago, message: Created visualizer class
+d3449d7 was alexjoubert, 17 hours ago, message: added Deserializer class
+37172d6 was alexjoubert, 19 hours ago, message: added Serializer class
+c688940 was alexjoubert, 19 hours ago, message: added utilities package
+7f14f66 was alexjoubert, 20 hours ago, message: added ObjectRefsArray and ObjectCollection Classes
+a74b874 was alexjoubert, 20 hours ago, message: renamed classes
+9aa3a67 was alexjoubert, 20 hours ago, message: added object generator for array of primitives
+50b4cda was alexjoubert, 20 hours ago, message: added object generator for simple objs
+46fd134 was alexjoubert, 20 hours ago, message: added object generator for primitaves
+4502600 was alexjoubert, 20 hours ago, message: first commit

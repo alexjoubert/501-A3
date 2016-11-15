@@ -7,8 +7,8 @@ import static utilities.TextDisplay.*;
 
 //Code adapted from assignment 2
 public class Visualizer {
-	public List<Class<?>> inspectedClasses;
-	public Object topInstance;
+	private List<Class<?>> inspectedClasses;
+	private Object topInstance;
 
 	public Visualizer() {
 		inspectedClasses = new ArrayList<Class<?>>();
@@ -187,7 +187,7 @@ public class Visualizer {
 					display("No value given", depth + 1);
 				else {
 					Visualizer newInspect = new Visualizer(); 
-					newInspect.setTopInstance(topInstance);
+					newInspect.topInstance = topInstance;
 					newInspect.visualize(fieldObj, fieldObj.getClass(), recursive, depth + 1);
 				}
 			} catch (Exception exp) {
@@ -224,9 +224,5 @@ public class Visualizer {
 			display();
 		}
 		display();
-	}
-	
-	private void setTopInstance(Object topInstance) {
-		this.topInstance = topInstance;
 	}
 }
