@@ -1,4 +1,4 @@
-package objectGenerator.templates;
+package objectGenerator;
 
 public class SimpleObjs {
 	public Object varObj1;

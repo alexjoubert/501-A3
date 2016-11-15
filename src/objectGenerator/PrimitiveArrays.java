@@ -1,4 +1,4 @@
-package objectGenerator.templates;
+package objectGenerator;
 
 public class PrimitiveArrays {
 	public int[] arrayInt;

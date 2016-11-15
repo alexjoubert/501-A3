@@ -55,13 +55,13 @@ public class TextDisplay {
 			return String.format(String.format("%%0%dd", repetitions), 0).replaceAll("0", c);
 	}
 
-	public static void alert(String message) {
+	/*public static void alert(String message) {
 		alert(message, DEFAULT_TEXT_WRAP);
-	}
+	}*/
 
-	public static void alertMsgLen(String message) {
+	/*public static void alertMsgLen(String message) {
 		alert(message, message.length());
-	}
+	}*/
 
 	public static void alert(String message, int repetitions) {
 		display(repeatChar("-", repetitions));
