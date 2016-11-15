@@ -78,6 +78,31 @@ public class Driver {
 		}
 		mainMenu();
 	}
+	
+	public static int getNextInt(Scanner userInput) {
+		int input = -1;
+		while (true) {
+			try {
+				input = userInput.nextInt();
+			} catch (InputMismatchException e) {
+				TextDisplay.display("Invalid selection");
+				userInput.next();
+			}
+			return input;
+		}
+	}
+
+	public static int menuSelect(Scanner userInput, List<String> menuList) {
+		TextDisplay.display(menuList);
+		int input = -1;
+		do {
+			TextDisplay.display("Please input a valid entry:");
+			input = Driver.getNextInt(userInput);
+		} while (input < 0 || input > menuList.size());
+		TextDisplay.display("You have selected: " + input);
+		TextDisplay.display(TextDisplay.repeatChar("#", 50));
+		return input;
+	}
 
 	private static void launchServer(String host, int port, String dirPath) {
 		TextDisplay.display("Accepting serialized files from: " + host + " and port: " + port);
@@ -154,30 +179,5 @@ public class Driver {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-
-	public static int getNextInt(Scanner userInput) {
-		int input = -1;
-		while (true) {
-			try {
-				input = userInput.nextInt();
-			} catch (InputMismatchException e) {
-				TextDisplay.display("Invalid selection");
-				userInput.next();
-			}
-			return input;
-		}
-	}
-
-	public static int menuSelect(Scanner userInput, List<String> menuList) {
-		TextDisplay.display(menuList);
-		int input = -1;
-		do {
-			TextDisplay.display("Please input a valid entry:");
-			input = Driver.getNextInt(userInput);
-		} while (input < 0 || input > menuList.size());
-		TextDisplay.display("You have selected: " + input);
-		TextDisplay.display(TextDisplay.repeatChar("#", 50));
-		return input;
 	}
 }
