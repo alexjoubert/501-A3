@@ -3,14 +3,14 @@ package objectGenerator.templates;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ObjectCollection {
+public class ObjCollection {
 	private List<Object> listObjs;
 	
-	public ObjectCollection(){
+	public ObjCollection(){
 		listObjs = new ArrayList<Object>();
 		listObjs.add(new Ints());
 		listObjs.add(new PrimitiveArrays());
-		listObjs.add(new ObjectRefsArray());
+		listObjs.add(new ObjRefsArray());
 		
 	}
 	

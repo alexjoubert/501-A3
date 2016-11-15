@@ -1,10 +1,10 @@
 package objectGenerator.templates;
 
-public class ObjectRefsArray {
+public class ObjRefsArray {
 
 	public Object[] arrayObjectRefs;
 
-	public ObjectRefsArray()
+	public ObjRefsArray()
 	{
 		arrayObjectRefs = new Object[100];
 	}
