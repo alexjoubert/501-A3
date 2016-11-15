@@ -50,10 +50,7 @@ public class Visualizer {
 			System.out.println(!objectType.equals(elemObj.getClass()));
 			if (!objectType.isPrimitive() && ((objectType.equals(Object.class) && elemObj != null)
 					|| !objectType.equals(elemObj.getClass())))
-				objectType = elemObj.getClass(); // Object arrays should
-													// output more specific info
-													// per element if its
-													// available
+				objectType = elemObj.getClass(); 	
 			if (elemObj != null) {
 				if (elemObj.equals(topInstance)) {
 					display("Circular reference to self. Halting recursion on this object", depth + 1);
@@ -77,7 +74,6 @@ public class Visualizer {
 		display("Declaring Class: " + objCls.getDeclaringClass(), depth);
 		display("Intermediate Super Class: " + superClass, depth);
 
-		// inspect the current class
 		visualizeConstructors(objCls, depth);
 		visualizeInterfaces(objCls, depth);
 		visualizeFields(origInstance, objCls, objsToInspect, depth);
@@ -96,7 +92,8 @@ public class Visualizer {
 	public void visualizePrimitive(Object obj, int depth) {
 		try {
 			Field valueField = obj.getClass().getDeclaredField("value");
-			valueField.setAccessible(true);
+			if (!Modifier.isPublic(valueField.getModifiers()))
+				valueField.setAccessible(true);
 			display("Primitive Value: " + valueField.get(obj).toString(), depth);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -108,15 +105,20 @@ public class Visualizer {
 			display("Constructors:", depth);
 		else
 			return;
-		for (Constructor<?> constructor : objCls.getDeclaredConstructors()) {
-			// constructor.setAccessible(true);
-			display("Name: " + constructor.getName(), depth + 1);
-			display("Modifier: " + Modifier.toString(constructor.getModifiers()), depth + 1);
-			for (Class<?> exception : constructor.getExceptionTypes())
+		for (Constructor<?> c : objCls.getDeclaredConstructors()) {
+			if(!Modifier.isPublic(c.getModifiers()))
+				c.setAccessible(true);
+			
+			display("Name: " + c.getName(), depth + 1);
+			display("Modifier: " + Modifier.toString(c.getModifiers()), depth + 1);
+			
+			for (Class<?> exception : c.getExceptionTypes())
 				display("Exception thrown: " + exception.getName(), depth + 1);
-			for (Class<?> paramTypes : constructor.getParameterTypes())
+			
+			for (Class<?> paramTypes : c.getParameterTypes())
 				display("Parameter types: " + paramTypes.getName(), depth + 1);
-			display("Declaring Class: " + constructor.getDeclaringClass().getName(), depth + 1);
+			
+			display("Declaring Class: " + c.getDeclaringClass().getName(), depth + 1);
 			display();
 		}
 		display();
@@ -127,15 +129,21 @@ public class Visualizer {
 			display("Methods:", depth);
 		else
 			return;
+		
 		for (Method method : objCls.getDeclaredMethods()) {
-			method.setAccessible(true);
+			if (!Modifier.isPublic(method.getModifiers()))
+				method.setAccessible(true);
+			
 			display("Name: " + method.getName(), depth + 1);
 			display("Modifier: " + Modifier.toString(method.getModifiers()), depth + 1);
 			display("Return Type: " + method.getReturnType(), depth + 1);
+			
 			for (Class<?> exception : method.getExceptionTypes())
 				display("Exception thrown: " + exception.getName(), depth + 1);
+			
 			for (Class<?> paramTypes : method.getParameterTypes())
 				display("Parameter types: " + paramTypes.getName(), depth + 1);
+			
 			display("Declaring Class: " + method.getDeclaringClass().getName(), depth + 1);
 			display();
 		}
@@ -147,6 +155,7 @@ public class Visualizer {
 			display("Interfaces:", depth);
 		else
 			return;
+		
 		for (Class<?> cls : objCls.getInterfaces()) {
 			display(cls.getName(), depth + 1);
 			display();
@@ -161,20 +170,18 @@ public class Visualizer {
 			display("FIELD CLASSES:", depth);
 		else
 			return;
+		
 		for (Field field : objsToInspect) {
-			field.setAccessible(true);
+			if (!Modifier.isPublic(field.getModifiers()))
+				field.setAccessible(true);
+			
 			display("Field Class Name: " + field.getName(), depth + 1);
 			try {
 				Object fieldObj = field.get(obj);
 				if (fieldObj == null)
 					display("No value given", depth + 1);
 				else {
-					Visualizer newInspect = new Visualizer(); // Needs a new
-																// instance
-																// otherwise we
-																// may cut a
-																// superclass
-																// unexpectedly
+					Visualizer newInspect = new Visualizer(); 
 					newInspect.setTopInstance(topInstance);
 					newInspect.visualize(fieldObj, fieldObj.getClass(), recursive, depth + 1);
 				}
@@ -197,7 +204,8 @@ public class Visualizer {
 				objsToInspect.add(field);
 
 			display("Name: " + field.getName(), depth + 1);
-			field.setAccessible(true);
+			if (!Modifier.isPublic(field.getModifiers()))
+				field.setAccessible(true);
 
 			try {
 				display("Value: " + field.get(obj), depth + 1);

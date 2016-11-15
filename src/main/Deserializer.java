@@ -66,7 +66,8 @@ public class Deserializer {
 			Object instance = null;
 			if (!cls.isArray()) {
 				Constructor<?> c = cls.getDeclaredConstructor(null);
-				c.setAccessible(true);
+				if (!Modifier.isPublic(c.getModifiers()))
+					c.setAccessible(true);
 				instance = c.newInstance(null);
 			} else {
 				instance = Array.newInstance(cls.getComponentType(),
@@ -95,9 +96,9 @@ public class Deserializer {
 					f.set(instance, deserializeValue(vElt, f.getType(), map));
 				}
 			} else {
-				Class comptype = instance.getClass().getComponentType();
+				Class compType = instance.getClass().getComponentType();
 				for (int j = 0; j < fieldElems.size(); j++) {
-					Array.set(instance, j, deserializeValue(fieldElems.get(j), comptype, map));
+					Array.set(instance, j, deserializeValue(fieldElems.get(j), compType, map));
 				}
 			}
 		}

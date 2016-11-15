@@ -22,6 +22,7 @@ public class Serializer {
 	public List<File> toFile(List<Object> objs) {
 		List<File> files = new ArrayList<File>();
 		int i = 0;
+		
 		for (Document doc : serializeList(objs)) {
 			XMLOutputter xmlOutput = new XMLOutputter();
 
@@ -51,15 +52,15 @@ public class Serializer {
 	public static Document serialize(Object obj, Document target, Map<Object, String> map) {
 		String id = Integer.toString(map.size());
 		map.put(obj, id);
-		Class<?> objclass = obj.getClass();
+		Class<?> objCls = obj.getClass();
 
 		Element objElem = new Element("object");
-		objElem.setAttribute("class", objclass.getName());
+		objElem.setAttribute("class", objCls.getName());
 		objElem.setAttribute("id", id);
 		target.getRootElement().addContent(objElem);
 
-		if (objclass.isArray()) {
-			Class<?> componentType = objclass.getComponentType();
+		if (objCls.isArray()) {
+			Class<?> componentType = objCls.getComponentType();
 
 			int length = Array.getLength(obj);
 			objElem.setAttribute("length", Integer.toString(length));
@@ -67,14 +68,16 @@ public class Serializer {
 				objElem.addContent(serializeVariable(componentType, Array.get(obj, i), target, map));
 			}
 		} else {
-			for (Field field : getNonStaticFields(objclass)) {
-				field.setAccessible(true);
+			for (Field field : getNonStaticFields(objCls)) {
+				if (!Modifier.isPublic(field.getModifiers()))
+					field.setAccessible(true);
+				
 				Element fieldElem = new Element("field");
 				fieldElem.setAttribute("name", field.getName());
-				Class<?> declaringClass = field.getDeclaringClass();
-				fieldElem.setAttribute("declaringclass", declaringClass.getName());
+				Class<?> declaringCls = field.getDeclaringClass();
+				fieldElem.setAttribute("declaringCls", declaringCls.getName());
 
-				Class<?> fieldtype = field.getType();
+				Class<?> fieldType = field.getType();
 				Object child = null;
 				try {
 					child = field.get(obj);
@@ -84,7 +87,7 @@ public class Serializer {
 					e.printStackTrace();
 				}
 
-				fieldElem.addContent(serializeVariable(fieldtype, child, target, map));
+				fieldElem.addContent(serializeVariable(fieldType, child, target, map));
 
 				objElem.addContent(fieldElem);
 			}
@@ -93,22 +96,22 @@ public class Serializer {
 		return target;
 	}
 
-	private static List<Field> getNonStaticFields(Class<?> clazz) {
+	private static List<Field> getNonStaticFields(Class<?> cls) {
 		List<Field> fields = new ArrayList<Field>();
-		for (Field field : clazz.getDeclaredFields()) {
+		for (Field field : cls.getDeclaredFields()) {
 			if (!Modifier.isStatic(field.getModifiers()))
 				fields.add(field);
 		}
-		if (clazz.getSuperclass() != null)
-			fields.addAll(getNonStaticFields(clazz.getSuperclass()));
+		if (cls.getSuperclass() != null)
+			fields.addAll(getNonStaticFields(cls.getSuperclass()));
 		return fields;
 	}
 	
-	private static Element serializeVariable(Class<?> fieldtype, Object child, Document target,
+	private static Element serializeVariable(Class<?> fieldType, Object child, Document target,
 			Map<Object, String> map) {
 		if (child == null) {
 			return new Element("null");
-		} else if (!fieldtype.isPrimitive()) {
+		} else if (!fieldType.isPrimitive()) {
 			Element reference = new Element("reference");
 			if (map.containsKey(child)) {
 				reference.setText(map.get(child).toString());
