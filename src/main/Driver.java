@@ -32,7 +32,7 @@ public class Driver {
 	}
 
 	public Driver() {
-		mainMenuText = General.readToList("src/main/assets/MainMenuText.txt");
+		mainMenuText = General.readToList("src/main/assets/MainMenu.txt");
 		serverConfig = General.readToList("src/main/assets/serverConfig.txt");
 		objGen = new ObjGenerator();
 		serializer = new Serializer();
