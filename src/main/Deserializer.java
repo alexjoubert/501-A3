@@ -10,7 +10,7 @@ import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
-//Following contains blocks of code adapted from Java Reflection: In Action textbook
+//Code adapted from Java Reflection: In Action textbook
 public class Deserializer {
 
 	public static List<Object> deserialize(List<Document> docs) {

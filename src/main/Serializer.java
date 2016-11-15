@@ -16,7 +16,7 @@ import org.jdom2.Element;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
-//Following contains blocks of code adapted from Java Reflection: In Action textbook
+//Code adapted from Java Reflection: In Action textbook
 public class Serializer {
 
 	public List<File> toFile(List<Object> objs) {
