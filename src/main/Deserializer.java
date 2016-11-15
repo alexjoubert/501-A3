@@ -13,19 +13,6 @@ import org.jdom2.input.SAXBuilder;
 //Code adapted from Java Reflection: In Action textbook
 public class Deserializer {
 
-	public static List<Object> deserialize(List<Document> docs) {
-		List<Object> objs = new ArrayList<Object>();
-
-		try {
-			for (Document doc : docs)
-				objs.add(deserialize(doc));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return objs;
-	}
-
 	public static Object deserialize(Document source) throws Exception {
 		List objList = source.getRootElement().getChildren();
 		Map table = new HashMap();
@@ -34,16 +21,6 @@ public class Deserializer {
 		assignFieldValues(table, objList);
 
 		return table.get("0");
-	}
-
-
-	public static List<Document> fileToDocument(List<File> files) {
-		List<Document> docs = new ArrayList<Document>();
-
-		for (File file : files)
-			docs.add(fileToDocument(file));
-
-		return docs;
 	}
 
 	public static Document fileToDocument(File file) {
@@ -57,6 +34,28 @@ public class Deserializer {
 		}
 
 		return document;
+	}
+
+	public static List<Object> deserialize(List<Document> docs) {
+		List<Object> objs = new ArrayList<Object>();
+
+		try {
+			for (Document doc : docs)
+				objs.add(deserialize(doc));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return objs;
+	}
+
+	public static List<Document> fileToDocument(List<File> files) {
+		List<Document> docs = new ArrayList<Document>();
+
+		for (File file : files)
+			docs.add(fileToDocument(file));
+
+		return docs;
 	}
 
 	private static void createInstances(Map map, List<Element> objList) throws Exception {

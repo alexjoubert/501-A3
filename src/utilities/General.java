@@ -4,6 +4,7 @@ package utilities;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -31,4 +32,8 @@ public class General {
 		return lines;
 	}
 	
+	public static List<File> getListOfFiles(String folderPath)
+	{
+		return Arrays.asList((new File(folderPath)).listFiles());
+	}
 }

@@ -35,19 +35,23 @@ public class Visualizer {
 	public void visualizeArray(Object origInstance, boolean recursive, int depth) {
 		display("Array Object:", depth);
 		display("Reference: " + origInstance, depth + 1);
+		
 		Class<?> componentType = origInstance.getClass().getComponentType();
 		Class<?> objectType = componentType;
 		display("Component Type: " + componentType.getName(), depth + 1);
 		display();
+		
 		int arrayLength = Array.getLength(origInstance);
 		display("Array size: " + arrayLength, depth + 1);
 		display();
+		
 		for (int i = 0; i < arrayLength; i++) {
 			display("Element Index: " + i, depth + 1);
 			Object elemObj = Array.get(origInstance, i);
 			System.out.println(componentType.isPrimitive());
 			System.out.println((objectType.equals(Object.class) && elemObj != null));
 			System.out.println(!objectType.equals(elemObj.getClass()));
+			
 			if (!objectType.isPrimitive() && ((objectType.equals(Object.class) && elemObj != null)
 					|| !objectType.equals(elemObj.getClass())))
 				objectType = elemObj.getClass(); 	
@@ -57,7 +61,6 @@ public class Visualizer {
 					visualize(elemObj, objectType, false, depth + 1);
 				} else
 					visualize(elemObj, objectType, recursive, depth + 1);
-
 			} else
 				display("Element: Null", depth + 1);
 			display();
@@ -67,7 +70,7 @@ public class Visualizer {
 
 	public void visualizeObject(Object origInstance, Class<?> objCls, boolean recursive, int depth) {
 		List<Field> objsToInspect = new ArrayList<Field>();
-		Class<?> superClass = objCls.getSuperclass();
+		Class<?> superClass = objCls.getSuperclass();		
 		inspectedClasses.add(objCls);
 		display("Recursion: " + recursive, depth);
 		display("Class Name: " + objCls.getName(), depth);
@@ -78,6 +81,7 @@ public class Visualizer {
 		visualizeInterfaces(objCls, depth);
 		visualizeFields(origInstance, objCls, objsToInspect, depth);
 		visualizeMethods(objCls, depth);
+		
 		if (recursive) {
 			visualizeFieldClasses(origInstance, objCls, objsToInspect, recursive, depth);
 
@@ -212,6 +216,7 @@ public class Visualizer {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			
 			display("Modifier: " + Modifier.toString(field.getModifiers()), depth + 1);
 			display("Type: " + field.getType().getName(), depth + 1);
 			display("Declaring Class: " + field.getDeclaringClass().getName(), depth + 1);

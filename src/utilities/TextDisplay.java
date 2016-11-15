@@ -3,13 +3,15 @@ package utilities;
 import java.util.List;
 
 public class TextDisplay {
-	private static int DEFAULT_TEXT_WRAP = 2500; // The default value to wrap
-													// around display text.
-	private static String DEFAULT_DELIMINATOR = "\n"; // The default value to
+	private static int DEFAULT_TEXT_WRAP = 2500; 		// The default value to wrap
+														// around display text.
+	
+	private static String DEFAULT_DELIMINATOR = "\n"; 	// The default value to
 														// wrap around display
 														// text.
-	private static int DEFAULT_DEPTH = 0;; // The default depth to indent
-											// display text.
+	
+	private static int DEFAULT_DEPTH = 0;; 				// The default depth to indent
+														// display text.
 
 	public static String wrapString(String s, String deliminator, int length) {
 		StringBuilder sb = new StringBuilder(s);
