@@ -32,6 +32,7 @@ public class Visualizer {
 	}
 
 
+	@SuppressWarnings("unused")
 	private void visualizeArray(Object origInstance, boolean recursive, int depth) {
 		display("Array Object:", depth);
 		display("Reference: " + origInstance, depth + 1);
@@ -224,11 +225,7 @@ public class Visualizer {
 		}
 		display();
 	}
-
-	/*public Object getTopInstance() {
-		return topInstance;
-	}*/
-
+	
 	private void setTopInstance(Object topInstance) {
 		this.topInstance = topInstance;
 	}

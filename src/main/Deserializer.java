@@ -14,8 +14,8 @@ import org.jdom2.input.SAXBuilder;
 public class Deserializer {
 
 	public static Object deserialize(Document source) throws Exception {
-		List objList = source.getRootElement().getChildren();
-		Map table = new HashMap();
+		List<Element> objList = source.getRootElement().getChildren();
+		Map<Object, Object> table = new HashMap<Object, Object>();
 
 		createInstances(table, objList);
 		assignFieldValues(table, objList);
@@ -58,7 +58,7 @@ public class Deserializer {
 		return docs;
 	}
 
-	private static void createInstances(Map map, List<Element> objList) throws Exception {
+	private static void createInstances(Map<Object, Object> map, List<Element> objList) throws Exception {
 		for (int i = 0; i < objList.size(); i++) {
 			Element objElem = objList.get(i);
 			Class<?> cls = Class.forName(objElem.getAttributeValue("class"));
@@ -76,7 +76,7 @@ public class Deserializer {
 		}
 	}
 
-	private static void assignFieldValues(Map map, List<Element> objList) throws Exception {
+	private static void assignFieldValues(Map<Object, Object> map, List<Element> objList) throws Exception {
 		for (int i = 0; i < objList.size(); i++) {
 			Element objElem = objList.get(i);
 			Object instance = map.get(objElem.getAttributeValue("id"));
@@ -95,7 +95,7 @@ public class Deserializer {
 					f.set(instance, deserializeValue(vElt, f.getType(), map));
 				}
 			} else {
-				Class compType = instance.getClass().getComponentType();
+				Class<?> compType = instance.getClass().getComponentType();
 				for (int j = 0; j < fieldElems.size(); j++) {
 					Array.set(instance, j, deserializeValue(fieldElems.get(j), compType, map));
 				}
@@ -103,7 +103,7 @@ public class Deserializer {
 		}
 	}
 
-	private static Object deserializeValue(Element vElt, Class fieldType, Map table) throws ClassNotFoundException {
+	private static Object deserializeValue(Element vElt, Class<?> fieldType, Map<Object, Object> table) throws ClassNotFoundException {
 		String valtype = vElt.getName();
 
 		if (valtype.equals("null")) {

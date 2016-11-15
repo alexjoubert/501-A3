@@ -21,8 +21,8 @@ public class ObjGenerator {
 
 	public ObjGenerator() {
 
-		ObjectMenu = General.readToList("src/objectGenerator/assets/ObjectMenu.txt");
-		ObjectGenerationMenu = General.readToList("src/objectGenerator/assets/ObjectGenerationMenu.txt");
+		ObjectMenu = General.readToList("src/objectGenerator/assets/ObjMenu.txt");
+		ObjectGenerationMenu = General.readToList("src/objectGenerator/assets/ObjGenMenu.txt");
 		objList = new ArrayList<Object>();
 	}
 
