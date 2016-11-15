@@ -79,7 +79,7 @@ public class Driver {
 		mainMenu();
 	}
 
-	public static void launchServer(String host, int port, String dirPath) {
+	private static void launchServer(String host, int port, String dirPath) {
 		TextDisplay.display("Accepting serialized files from: " + host + " and port: " + port);
 
 		(new File(dirPath)).mkdirs(); 
@@ -116,7 +116,7 @@ public class Driver {
 		}
 	}
 
-	public static void launchClient(String host, int port, List<File> files) {
+	private static void launchClient(String host, int port, List<File> files) {
 		TextDisplay.display("Sending serialized files to: " + host + " and port: " + port);
 
 		Socket socket;
